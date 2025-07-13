@@ -1,0 +1,133 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>For My Love 💖</title>
+
+  <!-- 1‑file styling for easy deploy -->
+  <style>
+    /* Google‑font import */
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap');
+
+    :root {
+      --bg: #111;
+      --primary: #ff79c6;
+      --text: #fff;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    /* Floating hearts */
+    .heart {
+      position: fixed;
+      bottom: -2rem;
+      width: 1.5rem;
+      height: 1.5rem;
+      background: var(--primary);
+      transform: rotate(45deg);
+      animation: float 8s linear infinite;
+    }
+    .heart::before,
+    .heart::after {
+      content: '';
+      position: absolute;
+      width: 1.5rem;
+      height: 1.5rem;
+      background: var(--primary);
+      border-radius: 50%;
+    }
+    .heart::before { top: -0.75rem; left: 0; }
+    .heart::after  { left: -0.75rem; top: 0; }
+    @keyframes float {
+      0%   { transform: translateX(0)   translateY(0)    rotate(45deg); opacity: 0; }
+      10%  { opacity: 1; }
+      100% { transform: translateX(-50px) translateY(-110vh) rotate(45deg); opacity: 0; }
+    }
+
+    /* Main card */
+    .card {
+      background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--primary);
+      border-radius: 1rem;
+      padding: 3rem 2.5rem;
+      text-align: center;
+      max-width: 22rem;
+    }
+    h1 { font-size: 2rem; margin-bottom: 1rem; }
+    p  { font-weight: 300; line-height: 1.5; margin-bottom: 2rem; }
+    button {
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 9999px;
+      background: var(--primary);
+      color: var(--text);
+      font-size: 1rem;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    button:hover { transform: scale(1.05); }
+
+    /* Hidden modal */
+    dialog {
+      border: none;
+      border-radius: 1rem;
+      padding: 2.5rem 2rem;
+      background: var(--primary);
+      color: var(--bg);
+      text-align: center;
+      max-width: 24rem;
+    }
+    dialog::backdrop { background: rgba(0,0,0,0.6); }
+    dialog h2 { font-size: 1.75rem; margin-bottom: 1rem; }
+  </style>
+</head>
+<body>
+  <!-- Decorative hearts -->
+  <script>
+    // Generate floating hearts
+    for (let i = 0; i < 20; i++) {
+      const h = document.createElement('div');
+      h.className = 'heart';
+      h.style.left = Math.random() * 100 + 'vw';
+      h.style.animationDelay = Math.random() * 8 + 's';
+      h.style.opacity = Math.random();
+      document.body.appendChild(h);
+    }
+  </script>
+
+  <!-- Content -->
+  <main class="card">
+    <h1>Hey, Beautiful! 🌹</h1>
+    <p>
+      I built this little page to tell you something<br />
+      straight from my heart.
+    </p>
+    <button id="reveal">Open it!</button>
+  </main>
+
+  <!-- Proposal modal -->
+  <dialog id="modal">
+    <h2>Will you marry me? 💍</h2>
+    <p>I promise to keep making tiny websites—and huge memories—with you forever.</p>
+    <button onclick="this.parentElement.close()">I ❤️ You Too!</button>
+  </dialog>
+
+  <script>
+    const btn = document.getElementById('reveal');
+    const modal = document.getElementById('modal');
+    btn.addEventListener('click', () => modal.showModal());
+  </script>
+</body>
+</html>
